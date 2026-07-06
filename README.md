@@ -202,15 +202,15 @@ Se espera:
 ```
 images/
 ├── 01_topologia.png
-├── 02_fgt-este_phase1.png
-├── 03_fgt-este_phase2.png
+├── 02_fgt-este_tunnel_config.png
+├── 03_fgt-este_interfaces.png
 ├── 04_fgt-este_static_route.png
 ├── 05_fgt-este_firewall_policy.png
-├── 06_fgt-oeste_phase1.png
-├── 07_fgt-oeste_phase2.png
+├── 06_fgt-tunnel_config.png
+├── 07_fgt-oeste_interfaces.png
 ├── 08_fgt-oeste_static_route.png
 ├── 09_fgt-oeste_firewall_policy.png
-└── 10_wireshark_esp_trafico.png
+├── 10_wireshark_esp_trafico.png
 └── 11_ping_tracert.png
 ```
 
