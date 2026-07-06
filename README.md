@@ -125,8 +125,8 @@ A diferencia de Cisco IOS, donde toda la VPN se concentra en un bloque `crypto`,
 ## 🔧 Configuración
 
 - `files/config.txt` (ISP-CLARO, notas de interfaz FTG, SW-1, SW-2)
-- `files/FTG-ESTE_7-0_0237_Site-to-Site` (Backup FTG-ESTE)
-- `files/FTG-OESTE_7-0_0237_Site-to-Site` (Backup FTG-OESTE)
+- `files/FTG-ESTE_7-0_0237_Site-to-Site.conf` (Backup FTG-ESTE)
+- `files/FTG-OESTE_7-0_0237_Site-to-Site.conf` (Backup FTG-OESTE)
 
 Bloques relevantes de FortiOS (FGT-ESTE):
 
