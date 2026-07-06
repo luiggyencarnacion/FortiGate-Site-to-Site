@@ -1,0 +1,169 @@
+################################################################################
+#  CONFIGURACIÓN — VPN SITE-TO-SITE FORTIGATE
+################################################################################
+
+
+──────────────────────────────────────────
+▶ DISPOSITIVO: ISP-CLARO
+──────────────────────────────────────────
+enable
+conf t
+no ip domain-lookup
+hostname ISP-CLARO
+banner motd # LUIGGY ENCARNACION 2025-0663 | EL ACCESO NO AUTORIZADO ESTA RESTRINGIDO #
+username Admin privilege 15 secret cisco
+service password-encryption
+
+ip domain-name redlocal.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+
+line console 0
+ exec-timeout 5 0
+ logging synchronous
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 5 0
+ logging synchronous
+
+exit
+
+! Interfaz hacia FTG-Este
+interface GigabitEthernet1/0
+ ip address 20.6.63.2 255.255.255.252
+ no shutdown
+
+! Interfaz hacia FTG-Oeste
+interface GigabitEthernet2/0
+ ip address 30.6.63.2 255.255.255.252
+ no shutdown
+
+exit
+
+! Interfaz loopback para pruebas
+int lo0
+ ip address 20.20.20.20 255.255.255.255
+exit
+
+! Rutas estáticas a las LANs
+ip route 10.6.63.0 255.255.255.0 20.6.63.1
+ip route 172.16.63.0 255.255.255.0 30.6.63.1
+
+end
+wr
+
+
+──────────────────────────────────────────
+▶ DISPOSITIVO: FTG-ESTE / FTG-OESTE (notas de configuración de interfaz)
+──────────────────────────────────────────
+
+(En nuestro caso, DHCP)
+config system interface
+    edit port1
+        set mode dhcp
+        set allowaccess ping https ssh http
+    end
+
+
+(En caso de IP estática)
+config system interface
+    edit port1
+        set ip 192.168.163.56 255.255.255.0
+        set allowaccess ping https ssh http
+    end
+
+config router static
+    edit 1
+        set gateway 192.168.1.1
+        set device port1
+    next
+end
+
+
+(Comprobar IP)
+get system interface physical
+
+
+──────────────────────────────────────────
+▶ DISPOSITIVO: SW-1
+──────────────────────────────────────────
+en
+conf t
+no ip domain-lookup
+hostname SW-1
+banner motd # LUIGGY ENCARNACION 2025-0663 | EL ACCESO NO AUTORIZADO ESTA RESTRINGIDO#
+username Admin privilege 15 secret cisco
+service password-encryption
+
+ip domain-name redlocal.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+
+line console 0
+ exec-timeout 5 0
+ logging synchronous
+line vty 0 4
+ login local
+ exec-timeout 5 0
+ logging synchronous
+ transport input ssh
+exit
+
+interface vlan1
+ ip address 10.6.63.2 255.255.255.0
+ no shutdown
+
+ip default-gateway 10.6.63.1
+
+int gig0/0
+ no negotiation auto
+ duplex full
+
+end
+wr
+
+
+──────────────────────────────────────────
+▶ DISPOSITIVO: SW-2
+──────────────────────────────────────────
+en
+conf t
+no ip domain-lookup
+hostname SW-2
+banner motd # LUIGGY ENCARNACION 2025-0663 | EL ACCESO NO AUTORIZADO ESTA RESTRINGIDO#
+username Admin privilege 15 secret cisco
+service password-encryption
+
+ip domain-name redlocal.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+
+line console 0
+ exec-timeout 5 0
+ logging synchronous
+line vty 0 4
+ login local
+ exec-timeout 5 0
+ logging synchronous
+ transport input ssh
+exit
+
+interface vlan1
+ ip address 172.16.63.2 255.255.255.0
+ no shutdown
+ip default-gateway 172.16.63.1
+
+int gig0/0
+ no negotiation auto
+ duplex full
+
+end
+wr
