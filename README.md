@@ -210,8 +210,8 @@ images/
 ├── 07_fgt-oeste_interfaces.png
 ├── 08_fgt-oeste_static_route.png
 ├── 09_fgt-oeste_firewall_policy.png
-├── 10_wireshark_esp_trafico.png
-└── 11_ping_tracert.png
+├── 10_ping_tracert.png
+└── 11_wireshark_esp_trafico.png
 ```
 
 ---
