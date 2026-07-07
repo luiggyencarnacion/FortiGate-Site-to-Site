@@ -17,7 +17,7 @@
 1. [Objetivo del Laboratorio](#-objetivo-del-laboratorio)
 2. [Parámetros Usados](#-parámetros-usados)
 3. [Documentación de la Red](#️-documentación-de-la-red)
-4. [Las 4 Piezas de un Túnel IPSec en FortiGate](#-las-4-piezas-de-un-túnel-ipsec-en-fortigate)
+4. [Piezas de un Túnel IPSec Site-to-Site en FortiGate](#-piezas-de-un-túnel-ipsec-site-to-site-en-fortigate)
 5. [Funcionamiento de la VPN](#-funcionamiento-de-la-vpn)
 6. [Configuración](#-configuración)
 7. [Verificación](#-verificación)
@@ -88,7 +88,7 @@ Establecer una VPN **Site-to-Site IPSec con IKEv2** entre dos firewalls **FortiG
 
 ---
 
-## 🧱 Las 4 Piezas de un Túnel IPSec en FortiGate
+## 🧱 Piezas de un Túnel IPSec Site-to-Site en FortiGate
 
 A diferencia de Cisco IOS, donde toda la VPN se concentra en un bloque `crypto`, en FortiGate el túnel se arma con **cuatro configuraciones independientes**, y omitir cualquiera de ellas deja el túnel sin funcionar aunque la Fase 1 y Fase 2 estén correctas:
 
